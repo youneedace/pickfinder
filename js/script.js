@@ -1,6 +1,4 @@
 
-const API_URL = '/api/proxy';
-
 document.addEventListener('DOMContentLoaded', () => {
     const searchBar = document.getElementById('search-bar');
     if (searchBar) {
@@ -9,80 +7,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchPlayer(e.target.value);
             }
         });
+        // Load initial players
+        loadAllPlayers();
     }
 });
 
-async function searchPlayer(playerName) {
-    if (!playerName) return;
+const API_URL = '/api/proxy';
 
-    // Clear the grid and show a loading state if you want
-    const dataGrid = document.querySelector('.data-grid');
-    // Remove existing non-header rows
-    dataGrid.querySelectorAll('.grid-row').forEach(row => row.remove());
-
-    const response = await fetch(`${API_URL}?endpoint=players&search=${playerName}`);
+async function loadAllPlayers(page = 0) {
+    const response = await fetch(`${API_URL}?endpoint=players&page=${page}&per_page=25`);
     const playerData = await response.json();
-
-    if (playerData.data && playerData.data.length > 0) {
-        const player = playerData.data[0];
-        // Now fetch stats for this player
-        const statsResponse = await fetch(`${API_URL}?endpoint=season_averages&player_ids[]=${player.id}`);
-        const statsData = await statsResponse.json();
-        
-        if (statsData.data && statsData.data.length > 0) {
-            const stats = statsData.data[0];
-            // We have a player and their stats, now display them
-            displayPlayerInGrid(player, stats);
-        } else {
-            // Handle case where player is found but has no stats
-            displayNoResults();
-        }
-    } else {
-        // Handle case where no player is found
-        displayNoResults();
+    if (playerData.data) {
+        displayPlayersInGrid(playerData.data);
     }
 }
 
-function displayPlayerInGrid(player, stats) {
-    const dataGrid = document.querySelector('.data-grid');
-
-    // Create rows for different stats
-    createStatRow(dataGrid, player, 'Points', stats.pts);
-    createStatRow(dataGrid, player, 'Assists', stats.ast);
-    createStatRow(dataGrid, player, 'Rebounds', stats.reb);
+async function searchPlayer(playerName) {
+    if (!playerName) {
+        loadAllPlayers(); // if search is cleared, load all players
+        return;
+    }
+    const response = await fetch(`${API_URL}?endpoint=players&search=${playerName}`);
+    const playerData = await response.json();
+    displayPlayersInGrid(playerData.data || []);
 }
 
-function createStatRow(grid, player, statName, avgStat) {
-    const row = document.createElement('div');
-    row.className = 'grid-row';
+function displayPlayersInGrid(players) {
+    const dataGrid = document.querySelector('.data-grid');
+    // Clear only the rows, not the header
+    dataGrid.querySelectorAll('.grid-row').forEach(row => row.remove());
 
-    // Generate placeholder hit rates
-    const l5 = Math.floor(Math.random() * 101);
-    const l10 = Math.floor(Math.random() * 101);
-    const szn = Math.floor(Math.random() * 101);
+    if (players.length === 0) {
+        displayNoResults();
+        return;
+    }
 
-    row.innerHTML = `
-        <div class="grid-cell col-player">
-            <img src="https://via.placeholder.com/32" alt="player">
-            <div>
-                <h4>${player.first_name} ${player.last_name}</h4>
-                <p>${player.team.abbreviation} vs OPP</p> <!-- Placeholder for opponent -->
+    players.forEach(player => {
+        const row = document.createElement('a'); // Change div to an anchor tag
+        row.className = 'grid-row';
+        row.href = `player.html?id=${player.id}`; // Link to the player detail page
+
+        // Using placeholders for stats as we don't have them on the main grid yet
+        const l5 = Math.floor(Math.random() * 101);
+        const l10 = Math.floor(Math.random() * 101);
+        const szn = Math.floor(Math.random() * 101);
+        const avgL10 = (Math.random() * 30).toFixed(1);
+
+        row.innerHTML = `
+            <div class="grid-cell col-player">
+                <img src="https://via.placeholder.com/32" alt="player">
+                <div>
+                    <h4>${player.first_name} ${player.last_name}</h4>
+                    <p>${player.team.abbreviation}</p>
+                </div>
             </div>
-        </div>
-        <div class="grid-cell col-line">
-            <p>${(avgStat - (avgStat / 10)).toFixed(1)} ${statName}</p>
-        </div>
-        <div class="grid-cell col-apps">
-            <img src="https://via.placeholder.com/24" title="PrizePicks" alt="PrizePicks">
-            <img src="https://via.placeholder.com/24" title="Underdog" alt="Underdog">
-        </div>
-        <div class="grid-cell">${avgStat.toFixed(1)}</div>
-        <div class="grid-cell ${getHitRateClass(l5)}">${l5}%</div>
-        <div class="grid-cell ${getHitRateClass(l10)}">${l10}%</div>
-        <div class="grid-cell ${getHitRateClass(szn)}">${szn}%</div>
-    `;
-
-    grid.appendChild(row);
+            <div class="grid-cell col-line">
+                <p>${(avgL10 - (avgL10 / 10)).toFixed(1)} Pts</p> <!-- Example line -->
+            </div>
+            <div class="grid-cell col-apps">
+                <img src="https://a.espncdn.com/i/sportsbook/logo-draftkings-44.png" title="DraftKings" alt="DraftKings">
+            </div>
+            <div class="grid-cell">${avgL10}</div>
+            <div class="grid-cell ${getHitRateClass(l5)}">${l5}%</div>
+            <div class="grid-cell ${getHitRateClass(l10)}">${l10}%</div>
+            <div class="grid-cell ${getHitRateClass(szn)}">${szn}%</div>
+        `;
+        dataGrid.appendChild(row);
+    });
 }
 
 function getHitRateClass(rate) {
