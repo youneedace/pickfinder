@@ -1,62 +1,114 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sports Betting Analytics</title>
+    <title>Pro-Pick-Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Pro-Pick-Analytics</h1>
-            <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Search for a player...">
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-chart-simple"></i>
+                <h1>PickFinder</h1>
             </div>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <div class="best-picks">
-                <h2>🔥 Trending Picks</h2>
-                <div class="pick-card">
-                    <div class="pick-player">
-                        <img src="https://via.placeholder.com/40" alt="Player"/>
-                        <div>
-                            <h3>LeBron James</h3>
-                            <p>Los Angeles Lakers</p>
+            <nav class="sidebar-nav">
+                <h3>Analysis</h3>
+                <a href="#" class="active"><i class="fa-solid fa-chart-pie"></i> Props</a>
+                <a href="#"><i class="fa-solid fa-scale-unbalanced-flip"></i> Discrepancies</a>
+                <a href="#"><i class="fa-solid fa-users"></i> Players</a>
+                <h3>Community</h3>
+                <a href="#"><i class="fa-solid fa-fire"></i> Popular</a>
+                <a href="#"><i class="fa-solid fa-star"></i> Pick Builder</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="sidebar-btn"><i class="fa-solid fa-video"></i> Video Guide</a>
+                <a href="#" class="sidebar-btn discord"><i class="fa-brands fa-discord"></i> Get Discord Access</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <div class="sports-nav">
+                    <a href="#" class="active">NBA</a>
+                    <a href="#">WNBA</a>
+                    <a href="#">MLB</a>
+                    <a href="#">TENNIS</a>
+                    <a href="#">SOCCER</a>
+                    <a href="#">NHL</a>
+                </div>
+                <div class="user-actions">
+                    <!-- User actions can go here -->
+                </div>
+            </header>
+            <div class="props-table-container">
+                <div class="props-header">
+                    <div class="search-container">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="search-bar" placeholder="Search Players...">
+                    </div>
+                    <div class="filters">
+                        <!-- Filter buttons can go here -->
+                    </div>
+                </div>
+                <div class="data-grid">
+                    <div class="grid-header">
+                        <div class="header-cell col-player">Player</div>
+                        <div class="header-cell col-line">Line</div>
+                        <div class="header-cell col-apps">Apps</div>
+                        <div class="header-cell">Avg L10</div>
+                        <div class="header-cell">L5</div>
+                        <div class="header-cell">L10</div>
+                        <div class="header-cell">SZN</div>
+                    </div>
+                    <!-- Demo Row 1 -->
+                    <div class="grid-row">
+                        <div class="grid-cell col-player">
+                            <img src="https://via.placeholder.com/32" alt="player">
+                            <div>
+                                <h4>LeBron James</h4>
+                                <p>LAL vs DEN</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="pick-details">
-                        <p>Points</p>
-                        <p class="projection">Over 25.5</p>
-                        <p class="hit-rate">75% Hit Rate</p>
-                    </div>
-                </div>
-                <div class="pick-card">
-                    <div class="pick-player">
-                        <img src="https://via.placeholder.com/40" alt="Player"/>
-                        <div>
-                            <h3>Stephen Curry</h3>
-                            <p>Golden State Warriors</p>
+                        <div class="grid-cell col-line">
+                            <p>25.5 Points</p>
                         </div>
+                        <div class="grid-cell col-apps">
+                            <img src="https://via.placeholder.com/24" title="PrizePicks" alt="PrizePicks">
+                            <img src="https://via.placeholder.com/24" title="Underdog" alt="Underdog">
+                        </div>
+                        <div class="grid-cell">27.8</div>
+                        <div class="grid-cell hit-rate-high">100%</div>
+                        <div class="grid-cell hit-rate-high">80%</div>
+                        <div class="grid-cell hit-rate-mid">65%</div>
                     </div>
-                    <div class="pick-details">
-                        <p>3-Pointers Made</p>
-                        <p class="projection">Over 4.5</p>
-                        <p class="hit-rate">80% Hit Rate</p>
+                    <!-- Demo Row 2 -->
+                    <div class="grid-row">
+                        <div class="grid-cell col-player">
+                            <img src="https://via.placeholder.com/32" alt="player">
+                            <div>
+                                <h4>Stephen Curry</h4>
+                                <p>GSW vs SAC</p>
+                            </div>
+                        </div>
+                        <div class="grid-cell col-line">
+                            <p>4.5 3-Pointers Made</p>
+                        </div>
+                        <div class="grid-cell col-apps">
+                            <img src="https://via.placeholder.com/24" title="PrizePicks" alt="PrizePicks">
+                        </div>
+                        <div class="grid-cell">5.1</div>
+                        <div class="grid-cell hit-rate-high">80%</div>
+                        <div class="grid-cell hit-rate-mid">70%</div>
+                        <div class="grid-cell hit-rate-low">40%</div>
                     </div>
+                     <!-- More rows will be dynamically inserted here by script.js -->
                 </div>
             </div>
-            <div class="player-props-container">
-                <h2>Player Props</h2>
-                <div class="player-props-grid">
-                    <!-- Player props will be dynamically inserted here -->
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Force redeploy -->
+        </main>
+    </div>
     <script src="js/script.js"></script>
 </body>
 </html>
