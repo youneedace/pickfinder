@@ -1,0 +1,177 @@
+body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+header {
+    background-color: #2c2c2c;
+    padding: 1rem 0;
+    border-bottom: 1px solid #444;
+}
+
+header h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.search-container {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+#search-bar {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+.best-picks, .player-props-container {
+    background-color: #2c2c2c;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #444;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.pick-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3a3a3a;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #555;
+}
+
+.pick-player {
+    display: flex;
+    align-items: center;
+}
+
+.pick-player img {
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.pick-player h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.pick-player p {
+    margin: 0;
+    color: #aaa;
+}
+
+.pick-details {
+    text-align: right;
+}
+
+.pick-details p {
+    margin: 0;
+}
+
+.projection {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.hit-rate {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.player-props-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.player-card {
+    background-color: #3a3a3a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+
+.player-card h3 {
+    margin-top: 0;
+}
+
+.view-stats-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.player-stats {
+    margin-top: 1.5rem;
+    background-color: #4a4a4a;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.projections, .trends, .injury-status, .matchup {
+    margin-top: 1rem;
+}
+
+.projections h5, .trends h5, .injury-status h5, .matchup h5 {
+    margin-bottom: 0.5rem;
+    color: #00aaff;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.25rem;
+    }
+
+    #search-bar {
+        width: 100%;
+    }
+
+    .player-props-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pick-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pick-details {
+        text-align: left;
+        margin-top: 1rem;
+    }
+}
